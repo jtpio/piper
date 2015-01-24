@@ -25,7 +25,7 @@ public class Wandering : MonoBehaviour {
 	}
 
 	void Update () {
-
+		
 	}
 
 	void LateUpdate () {
