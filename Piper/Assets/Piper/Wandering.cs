@@ -15,7 +15,7 @@ public class Wandering : MonoBehaviour {
 
 	void Orbit()
 	{
-		float yOffset = Mathf.Cos(Mathf.Sin(4 * Time.time)) * yAmplitude - 2;
+		float yOffset = yAmplitude * (Mathf.Cos(Mathf.Sin(Mathf.Cos(0.5f*Time.time)+Time.time))+Mathf.Sin(Mathf.Cos(Time.time+Mathf.Sin(Mathf.Cos(0.3f*Time.time))))-0.5f);
 		transform.position = new Vector3(transform.position.x, target.position.y + yOffset, transform.position.z);
 		if(target != null) {
 			Vector3 truePos = new Vector3(target.position.x, transform.position.y, target.position.z);

@@ -11,7 +11,8 @@ public class Shrink : MonoBehaviour {
 	
 	void Update () {
 		if(detector.Spotted){
-			iTween.ScaleBy(gameObject, iTween.Hash("x", .01, "y", .01, "z", .01, "easeType", "easeOutExpo", "Time", 1));
+			iTween.ScaleBy(gameObject, iTween.Hash("x", .01, "y", .01, "z", .01, "easeType", "easeOutExpo", "Time", 1.3));
+			GetComponent<AudioSource>().Play();
 		}
 		if(transform.localScale == new Vector3(.01f, .01f, .01f))Destroy(gameObject);
 	}
