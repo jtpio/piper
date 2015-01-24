@@ -15,7 +15,7 @@ public class IsLookedAt : MonoBehaviour {
 		if(Physics.Raycast(head.Gaze, out hit, Mathf.Infinity)){
 			spotted = (hit.collider.gameObject == gameObject);
 		}
-
+	}
 	public bool Spotted
 	{
 		get {
