@@ -32,6 +32,9 @@ public class Wandering : MonoBehaviour {
 		Orbit();
 		Vector3 relativePos = target.position - transform.position;
 		var rotation = Quaternion.LookRotation(relativePos);
+		rotation.eulerAngles = new Vector3(rotation.eulerAngles.x + 10*Mathf.Clamp01(Mathf.Sin(0.5f*Time.time)*4-2), 
+										rotation.eulerAngles.y + 30*Mathf.Clamp01(Mathf.Cos(Time.time)*8-6), 
+										rotation.eulerAngles.z);
 		transform.rotation = rotation;
 	}
 }

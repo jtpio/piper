@@ -8,7 +8,7 @@ public class Rotate : MonoBehaviour {
 	private AudioSource rotationSound;
 	
 	public int rot;
-	public enum Axis {X = 0, Y = 1, Z = 2};
+	public enum Axis {X, Y, Z};
 	public Axis axis;
 	
 	private IsLookedAt detector;
