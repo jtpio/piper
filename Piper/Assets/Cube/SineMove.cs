@@ -10,6 +10,6 @@ public class SineMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3(0, 0, Mathf.Cos(Time.time) * 50);
+		transform.position = new Vector3(0, 0, Mathf.Cos(Time.time) * 10);
 	}
 }
