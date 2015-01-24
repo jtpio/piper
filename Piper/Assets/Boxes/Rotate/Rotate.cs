@@ -18,7 +18,7 @@ public class Rotate : MonoBehaviour {
 		iTween.Init (gameObject);
 		axis = (Axis)Random.Range(0, 3);
 		rot = 1+Random.Range(0, 3);
-		iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), rot*.25, "easeType", "easeInOutBack", "Time", 1, "onstart", "playSound", "delay", .2));
+		iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), rot*.25, "easeType", "easeInOutBack", "Time", 1, "onstart", "playSound", "delay", Random.Range(0f, 2f)));
 		detector = GetComponent<IsLookedAt>();
 		rotationSound = GetComponent<AudioSource>();
 	}
