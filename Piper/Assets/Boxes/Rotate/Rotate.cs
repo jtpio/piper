@@ -30,12 +30,14 @@ public class Rotate : MonoBehaviour {
 	IEnumerator RotateBox (float delay) {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
-			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "oncomplete", "onRotationComplete"));
+			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "oncomplete", "onRotationComplete", "onstart", "playSound"));
 		} else {
 			isRotating = false;
 		}
 	}
-
+	void playSound(){
+		GetComponent<AudioSource>().Play();
+	}
 	void onRotationComplete() {
 		isRotating = false;
 	}
