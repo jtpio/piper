@@ -3,11 +3,10 @@ using System.Collections;
 
 public class InitCube : MonoBehaviour {
 
-	public Light light;
-	private float size = 5.0f;
+	public Light mainlight;
 	public ArrayList walls = new ArrayList();
 	
 	void Update () {
-		light.color = Color.Lerp(light.color, Color.magenta, Time.deltaTime * 0.1f);
+		mainlight.color = Color.Lerp(mainlight.color, Color.magenta, Time.deltaTime * 0.1f);
 	}
 }
