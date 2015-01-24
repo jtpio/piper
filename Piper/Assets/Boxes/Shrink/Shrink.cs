@@ -17,7 +17,8 @@ public class Shrink : MonoBehaviour {
 	
 	void Start() {
 		iTween.Init (gameObject);
-		currentSize = Random.Range(0, sizes.Length);
+		int[] rnd = {0, 2, 3};
+		currentSize = rnd[Random.Range(0, rnd.Length)];
 		Debug.Log(currentSize);
 		float initSize = sizes[currentSize];
 		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
