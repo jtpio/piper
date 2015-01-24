@@ -10,7 +10,6 @@ public class Shrink : MonoBehaviour {
 	private AudioSource shrinkSound;
 	
 	public float[] sizes = new float[3];
-	private float lastSize;
 	private int currentSize = 0;
 
 	private IsLookedAt detector;
@@ -20,7 +19,6 @@ public class Shrink : MonoBehaviour {
 		iTween.Init (gameObject);
 		currentSize = Random.Range(0, sizes.Length - 2); // only the first 4 to avoid an instant win
 		float initSize = sizes[currentSize];
-		lastSize = initSize;
 		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
 		detector = GetComponent<IsLookedAt>();
 		shrinkSound = GetComponent<AudioSource>();
@@ -43,12 +41,11 @@ public class Shrink : MonoBehaviour {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
 			float newSize = sizes[0];
-			do {
-				currentSize = Random.Range(0, sizes.Length);
-				newSize = sizes[currentSize];
-			} while (newSize == lastSize);
+			
+			currentSize = ++currentSize%sizes.Length;
+			newSize = sizes[currentSize];
+			
 			Debug.Log ("currentSize: " + currentSize);
-			lastSize = newSize;
 			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime));
 		} else {
 			isShrinking = false;
