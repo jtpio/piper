@@ -45,9 +45,8 @@ public class CheckCorrectSizes : MonoBehaviour {
 		}
 
 		if (goodBig != null && goodL != null && goodR != null) {
-			Debug.Log ("WIIIIIIIN");
 			levelWon = true;
-			WinLevel();
+			StartCoroutine(WinLevel());
 		} else {
 			goodBig = null;
 			goodL = null;
@@ -55,14 +54,16 @@ public class CheckCorrectSizes : MonoBehaviour {
 		}
 	}
 
-	void WinLevel () {
+	IEnumerator WinLevel () {
+		player.GetComponent<MouseLook>().enabled = false;
+		player.GetComponent<Cardboard>().enabled = false;
+		
 		goodBig.GetComponent<Shrink>().ShrinkToDoor();
 		goodL.GetComponent<Shrink>().ShrinkToDoor();
 		goodR.GetComponent<Shrink>().ShrinkToDoor();
-
-		player.GetComponent<MouseLook>().enabled = false;
-		player.GetComponent<Cardboard>().enabled = false;
-
+		
+		yield return new WaitForSeconds(1);
+		
 		Transform[] toDisable = {goodBig, goodL, goodR};
 		foreach (Transform t in transform) {
 			if (toDisable.Contains(t)) {
@@ -86,7 +87,6 @@ public class CheckCorrectSizes : MonoBehaviour {
 
 	IEnumerator PlayerRotationFinished (float delay) {
 		yield return new WaitForSeconds(delay);
-		Debug.Log("Fade level");
 		AutoFade.LoadLevel("Level3", 3, 1, Color.black);
 	}
 }

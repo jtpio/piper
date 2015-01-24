@@ -15,7 +15,6 @@ public class CheckCorrectRotation : MonoBehaviour {
 	void Update () {
 		foreach(GameObject cube in cubes)if(cube.GetComponent<Rotate>().rot != 0){flag = false; break;}else{flag = true;};
 		if(flag){
-			Debug.Log("YOU WIN!");
 			if(!win.isPlaying)win.Play();
 			AutoFade.LoadLevel("Level2", 3, 1, Color.black);
 		}
