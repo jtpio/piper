@@ -10,6 +10,11 @@ public class Rotate : MonoBehaviour {
 		detector = GetComponent<IsLookedAt>();
 	}
 	void Update() {
-		renderer.material.color = detector.Spotted ? Color.yellow : Color.white;
+		if (detector.Spotted) {
+			renderer.material.color = Color.yellow;
+			iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack"));
+		} else {
+			renderer.material.color = Color.white;
+		}
 	}
 }
