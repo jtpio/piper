@@ -4,7 +4,6 @@ using System.Collections;
 public class InitCube : MonoBehaviour {
 
 	public Light light;
-	private float size = 5.0f;
 	public ArrayList walls = new ArrayList();
 	
 	void Update () {

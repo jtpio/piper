@@ -13,7 +13,6 @@ public class Rotate : MonoBehaviour {
 	}
 	
 	void Update() {
-		Debug.Log(detector.Spotted);
 		renderer.material.color = detector.Spotted ? Color.yellow : Color.white;
 	}
 }
