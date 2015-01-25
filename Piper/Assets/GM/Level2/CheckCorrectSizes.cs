@@ -53,6 +53,7 @@ public class CheckCorrectSizes : MonoBehaviour {
 	}
 
 	IEnumerator WinLevel () {
+		GameObject.Find("Point light").light.color = new Color(93.0f / 255.0f, 1.0f, 0.0f);
 		goodBig.GetComponent<Shrink>().ShrinkToDoor();
 		goodL.GetComponent<Shrink>().ShrinkToDoor();
 		goodR.GetComponent<Shrink>().ShrinkToDoor();
