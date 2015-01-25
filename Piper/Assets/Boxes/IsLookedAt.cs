@@ -5,6 +5,11 @@ public class IsLookedAt : MonoBehaviour {
 	
 	private CardboardHead head;
 	private bool spotted = false;
+	public float initTime;
+	
+	void Awake(){
+		initTime = 5.0f;
+	}
 	
 	void Start () {
 		head = Camera.main.GetComponent<StereoController>().Head;
@@ -12,7 +17,7 @@ public class IsLookedAt : MonoBehaviour {
 
 	void Update () {
 
-		if (Time.time < 5) return;
+		if (Time.time < initTime) return;
 		
 		RaycastHit hit;
 		if(Physics.Raycast(head.Gaze, out hit, Mathf.Infinity)){

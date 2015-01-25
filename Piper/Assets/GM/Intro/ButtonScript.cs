@@ -10,15 +10,16 @@ public class ButtonScript : MonoBehaviour {
 
 	void Start () {
 		isLookedAt = GetComponent<IsLookedAt>();
+		isLookedAt.initTime = 0.0f;
 	}
 
 	void Update () {
 		head = Camera.main.GetComponent<StereoController>().Head;
 	
 		RaycastHit hit;
-
+		
 		if (isLookedAt.Spotted) {
-			StartCoroutine(StartGame(3.0f));
+			StartCoroutine(StartGame(0.5f));
 		} else {
 			StopCoroutine("StartGame");
 		}
