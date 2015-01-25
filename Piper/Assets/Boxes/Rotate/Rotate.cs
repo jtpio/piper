@@ -14,21 +14,14 @@ public class Rotate : MonoBehaviour {
 	private IsLookedAt detector;
 	private bool isRotating = false;
 	
-	private Vector3 startPos;
-	
 	void Start() {
-		startPos = transform.position;
-		transform.position = new Vector3(Random.Range(-20f, 20f), Random.Range(-20f, 20f), Random.Range(-20f, 20f));
 		rotationDelay = 0.25f;
 		iTween.Init (gameObject);
 		axis = (Axis)Random.Range(0, 3);
 		rot = 1+Random.Range(0, 3);
-		iTween.MoveTo(gameObject, iTween.Hash("x", startPos.x, "y", startPos.y, "z", startPos.z, "easeType", "easeInExpo", "Time", 3, "oncomplete", "randomRotation"));
+		iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), rot*.25, "easeType", "easeInOutBack", "Time", 1, "onstart", "playSound", "delay", Random.Range(0f, 2f)));
 		detector = GetComponent<IsLookedAt>();
 		rotationSound = GetComponent<AudioSource>();
-	}
-	void randomRotation(){
-			iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), rot*.25, "easeType", "easeInOutBack", "Time", 1, "onstart", "playSound", "delay", Random.Range(0f, 2f)));
 	}
 	void Update() {
 		if (detector.Spotted) {
