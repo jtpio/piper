@@ -10,9 +10,10 @@ public class DetectDevice : MonoBehaviour {
 			Cardboard cb = GetComponent<Cardboard>();
 			if(SystemInfo.deviceType == DeviceType.Desktop){
 				cb.VRModeEnabled = false;
-				foreach(GameObject cursor in cursors)cursor.SetActive(false);
+//				foreach(GameObject cursor in cursors)cursor.SetActive(false);
 			}else{
 				cb.VRModeEnabled = true;
+				Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			}
 		}
 	}
