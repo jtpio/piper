@@ -1,46 +1,58 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Collider))]
 public class Shrink : MonoBehaviour {
 
-	public float shrinkSpeed;
-	public float scaleDelay;
-	public int[] sizes = new int[3];
+	public float shrinkDelay;
+	public float shrinkTime;
+	private AudioSource shrinkSound;
+	
+	public float[] sizes = new float[3];
+	private float lastSize;
 
 	private IsLookedAt detector;
-	private bool lastSpotted = false;
-	private bool isScaling = false;
-
-	void Start () {
-		iTween.Init (gameObject);
-		detector = GetComponent<IsLookedAt>();
-	}
+	private bool isShrinking = false;
 	
-	void Update () {
-		if(detector.Spotted){
-			if (!isScaling) {
-				isScaling = true;
-				StartCoroutine(ScaleBox(scaleDelay));
-			}
+	void Start() {
+		iTween.Init (gameObject);
+		float initSize = sizes[Random.Range(0, sizes.Length)];
+		lastSize = initSize;
+		iTween.ScaleBy(gameObject, iTween.Hash("x", initSize, "y", initSize, "z", initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
+		detector = GetComponent<IsLookedAt>();
+		shrinkSound = GetComponent<AudioSource>();
+	}
+	void Update() {
+		if (detector.Spotted) {
 			renderer.material.color = Color.red;
+			if (!isShrinking) {
+				isShrinking = true;
+				StartCoroutine(RotateBox(shrinkDelay));
+			}
 		} else {
-			isScaling = true;
-			StopCoroutine("ScaleBox");
+			isShrinking = false;
+			StopCoroutine("RotateBox");
 			renderer.material.color = Color.white;
 		}
 	}
-
-	IEnumerator ScaleBox (float delay) {
+	
+	IEnumerator RotateBox (float delay) {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
-			int scale = Random.Range(0, sizes.Length);
-			iTween.ScaleBy(gameObject, iTween.Hash("x", scale, "y", scale, "z", scale, "easeType", "easeOutExpo", "Time", 1.3));
+			float newSize = sizes[0];
+			do {
+				newSize = sizes[Random.Range(0, sizes.Length)];
+			} while (newSize == lastSize);
+			lastSize = newSize;
+			iTween.ScaleTo(gameObject, iTween.Hash("x", newSize, "y", newSize, "z", newSize, "easeType", "easeOutExpo", "Time", shrinkTime));
 		} else {
-			isScaling = false;
+			isShrinking = false;
 		}
 	}
-
+	void playSound(){
+		if(!shrinkSound.isPlaying)shrinkSound.Play();
+	}
 	void onRotationComplete() {
-		isScaling = false;
+		isShrinking = false;
 	}
 }
