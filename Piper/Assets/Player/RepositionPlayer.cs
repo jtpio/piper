@@ -18,7 +18,8 @@ public class RepositionPlayer : MonoBehaviour {
 	public void Reposition () {
 		GetComponent<MouseLook>().enabled = false;
 		GetComponent<Cardboard>().enabled = false;
-
+		gameObject.GetComponentInChildren<CardboardHead>().enabled = false;
+		
 		iTween.RotateTo(gameObject, iTween.Hash("rotation", initQuaternionPlayer.eulerAngles, "easeType", "easeInOutQuart", "Time", rotationTime));
 	}
 }
