@@ -31,9 +31,10 @@ public class CheckTextRemoved : MonoBehaviour {
 		
 		yield return new WaitForSeconds(10);
 		Destroy(piper.GetComponent<Wandering>());
+		piper.audio.pitch = 0.7f;
 		iTween.MoveTo(piper.gameObject, iTween.Hash("position", finalPosPiper, "looktarget", player , "easeType", "easeInOutQuart", "Time", 2));
 		yield return new WaitForSeconds(2);
-		AutoFade.LoadLevel(4, 3, 2, Color.black);
+		AutoFade.LoadLevel("Level4", 3, 1, Color.black);
 	}
 	
 }
