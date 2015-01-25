@@ -17,6 +17,7 @@ public class CheckCorrectRotation : MonoBehaviour {
 		if(flag){
 			Debug.Log("YOU WIN!");
 			if(!win.isPlaying)win.Play();
+			Application.LoadLevel("Level2");
 		}
 	}
 }
