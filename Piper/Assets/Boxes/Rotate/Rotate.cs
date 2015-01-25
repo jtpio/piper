@@ -15,6 +15,7 @@ public class Rotate : MonoBehaviour {
 	private bool isRotating = false;
 	
 	void Start() {
+		rotationDelay = 0.25f;
 		iTween.Init (gameObject);
 		axis = (Axis)Random.Range(0, 3);
 		rot = 1+Random.Range(0, 3);
@@ -39,7 +40,7 @@ public class Rotate : MonoBehaviour {
 	IEnumerator RotateBox (float delay) {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
-			iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), .25, "easeType", "easeInOutBack", "oncomplete", "onRotationComplete", "onstart", "playSound"));
+			iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), .25, "Time", 0.5f, "easeType", "easeInOutBack", "oncomplete", "onRotationComplete", "onstart", "playSound"));
 		} else {
 			isRotating = false;
 		}
