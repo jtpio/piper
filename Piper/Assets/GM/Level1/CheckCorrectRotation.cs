@@ -36,7 +36,7 @@ public class CheckCorrectRotation : MonoBehaviour {
 		yield return new WaitForSeconds(0);
 		if(!win.isPlaying) win.Play();
 		AutoFade.LoadLevel("Level2", 3, 1, Color.black);
-		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("foo")) {
+		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("box")) {
 			if(obj.name == "RotatingBox") {
 				obj.GetComponent<Rotate>().enabled = false;
 			}

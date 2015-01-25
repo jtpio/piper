@@ -30,11 +30,11 @@ public class Shrink : MonoBehaviour {
 			renderer.material.color = Color.red;
 			if (!isShrinking) {
 				isShrinking = true;
-				StartCoroutine(RotateBox(shrinkDelay));
+				StartCoroutine(ShrinkBox(shrinkDelay));
 			}
 		} else {
 			isShrinking = false;
-			StopCoroutine("RotateBox");
+			StopCoroutine("ShrinkBox");
 			renderer.material.color = Color.white;
 		}
 	}
@@ -43,20 +43,20 @@ public class Shrink : MonoBehaviour {
 		iTween.Stop(gameObject);
 		currentSize = 1;
 		float initSize = sizes[currentSize];
-		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
+		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime, "onstart", "playSound"));
 	}
 
 	public void ShrinkToZero () {
 		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * 0.2f, "y",  initScale.y * 0.2f, "z", initScale.z * 0.2f, "easeType", "easeOutExpo", "Time", shrinkTime));
 	}
 
-	IEnumerator RotateBox (float delay) {
+	IEnumerator ShrinkBox (float delay) {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
 			float newSize = sizes[(currentSize+1)%sizes.Length];
 			
 			Debug.Log ("currentSize: " + currentSize);
-			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime));
+			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime, "onstart", "playSound"));
 			currentSize = ++currentSize%sizes.Length;
 		} else {
 			isShrinking = false;
