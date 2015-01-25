@@ -17,7 +17,7 @@ public class CheckCorrectRotation : MonoBehaviour {
 		if(flag){
 			Debug.Log("YOU WIN!");
 			if(!win.isPlaying)win.Play();
-			AutoFade.LoadLevel("Level2" ,3,1,Color.black);
+			AutoFade.LoadLevel("Level2", 3, 1, Color.black);
 		}
 	}
 }

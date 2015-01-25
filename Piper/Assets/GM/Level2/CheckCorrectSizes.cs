@@ -34,6 +34,7 @@ public class CheckCorrectSizes : MonoBehaviour {
 
 		if (goodBig != null && goodL != null && goodR != null) {
 			Debug.Log ("WIIIIIIIN");
+			AutoFade.LoadLevel("Level3", 3, 1, Color.black);
 		}
 
 	}
