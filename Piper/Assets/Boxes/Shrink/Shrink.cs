@@ -17,7 +17,8 @@ public class Shrink : MonoBehaviour {
 	
 	void Start() {
 		iTween.Init (gameObject);
-		currentSize = Random.Range(0, sizes.Length);
+		int[] rnd = {0, 2, 3};
+		currentSize = rnd[Random.Range(0, rnd.Length)];
 		Debug.Log(currentSize);
 		float initSize = sizes[currentSize];
 		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
@@ -39,7 +40,7 @@ public class Shrink : MonoBehaviour {
 	}
 
 	public void ShrinkToDoor () {
-		iTween.Stop (gameObject);
+		iTween.Stop(gameObject);
 		currentSize = 1;
 		float initSize = sizes[currentSize];
 		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
@@ -52,11 +53,11 @@ public class Shrink : MonoBehaviour {
 	IEnumerator RotateBox (float delay) {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
-			currentSize = ++currentSize%sizes.Length;
-			float newSize = sizes[currentSize];
+			float newSize = sizes[(currentSize+1)%sizes.Length];
 			
 			Debug.Log ("currentSize: " + currentSize);
 			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime));
+			currentSize = ++currentSize%sizes.Length;
 		} else {
 			isShrinking = false;
 		}
