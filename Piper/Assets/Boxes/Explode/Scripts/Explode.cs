@@ -20,4 +20,10 @@ public class Explode : MonoBehaviour {
 		}
 		if(transform.localScale == new Vector3(.01f, .01f, .01f))Destroy(gameObject);
 	}
+	
+	void OnCollisionEnter(Collision other){
+		iTween.ScaleBy(gameObject, iTween.Hash("x", .01, "y", .01, "z", .01, "easeType", "EaseInOutBack", "Time", 1));
+		if(ptcl != null)Instantiate(ptcl, transform.position, Quaternion.identity);
+		exploded = true;
+	}
 }
