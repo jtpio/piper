@@ -24,6 +24,8 @@ public class Shrink : MonoBehaviour {
 		iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
 		detector = GetComponent<IsLookedAt>();
 		shrinkSound = GetComponent<AudioSource>();
+		GetComponent<ParticleSystem>().Play();
+		GetComponent<ParticleSystem>().enableEmission = (currentSize == 1);
 	}
 	void Update() {
 		if (detector.Spotted) {
@@ -58,6 +60,7 @@ public class Shrink : MonoBehaviour {
 			Debug.Log ("currentSize: " + currentSize);
 			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime, "onstart", "playSound"));
 			currentSize = ++currentSize%sizes.Length;
+			GetComponent<ParticleSystem>().enableEmission = (currentSize == 1);
 		} else {
 			isShrinking = false;
 		}
