@@ -11,11 +11,13 @@ public class Shrink : MonoBehaviour {
 	
 	public float[] sizes = new float[4];
 	private int currentSize;
+	private GameObject cubeMap;
 
 	private IsLookedAt detector;
 	private bool isShrinking = false;
 	
 	void Start() {
+		cubeMap = GameObject.Find("Cube_Map");
 		iTween.Init (gameObject);
 		int[] rnd = {0, 2, 3};
 		currentSize = rnd[Random.Range(0, rnd.Length)];
@@ -61,6 +63,7 @@ public class Shrink : MonoBehaviour {
 			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime, "onstart", "playSound"));
 			currentSize = ++currentSize%sizes.Length;
 			GetComponent<ParticleSystem>().enableEmission = (currentSize == 1);
+			if(Time.time > 5)iTween.PunchPosition(cubeMap, iTween.Hash("amount", cubeMap.transform.position + 5 * Vector3.up, "time", 0.5f));
 		} else {
 			isShrinking = false;
 		}
