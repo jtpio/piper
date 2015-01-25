@@ -4,6 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Collider))]
 public class Shrink : MonoBehaviour {
 
+	public Vector3 initScale;
 	public float shrinkDelay;
 	public float shrinkTime;
 	private AudioSource shrinkSound;
@@ -18,7 +19,7 @@ public class Shrink : MonoBehaviour {
 		iTween.Init (gameObject);
 		float initSize = sizes[Random.Range(0, sizes.Length)];
 		lastSize = initSize;
-		iTween.ScaleBy(gameObject, iTween.Hash("x", initSize, "y", initSize, "z", initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
+		iTween.ScaleBy(gameObject, iTween.Hash("x", initScale.x *  initSize, "y",  initScale.y * initSize, "z", initScale.z * initSize, "easeType", "easeOutExpo", "Time", shrinkTime));
 		detector = GetComponent<IsLookedAt>();
 		shrinkSound = GetComponent<AudioSource>();
 	}
@@ -44,7 +45,7 @@ public class Shrink : MonoBehaviour {
 				newSize = sizes[Random.Range(0, sizes.Length)];
 			} while (newSize == lastSize);
 			lastSize = newSize;
-			iTween.ScaleTo(gameObject, iTween.Hash("x", newSize, "y", newSize, "z", newSize, "easeType", "easeOutExpo", "Time", shrinkTime));
+			iTween.ScaleTo(gameObject, iTween.Hash("x", initScale.x * newSize, "y", initScale.y * newSize, "z", initScale.z * newSize, "easeType", "easeOutExpo", "Time", shrinkTime));
 		} else {
 			isShrinking = false;
 		}
