@@ -14,9 +14,12 @@ public class Rotate : MonoBehaviour {
 	private IsLookedAt detector;
 	private bool isRotating = false;
 	
+	private GameObject cubeMap;
+	
 	private Vector3 startPos;
 	
 	void Start() {
+		cubeMap = GameObject.Find("Cube_Map");
 		gameObject.tag = "box";
 		startPos = transform.position;
 		transform.position = new Vector3(Random.Range(-20f, 20f), Random.Range(-20f, 20f), Random.Range(-20f, 20f));
@@ -49,7 +52,7 @@ public class Rotate : MonoBehaviour {
 		yield return new WaitForSeconds(delay);
 		if (detector.Spotted) { // double check
 			iTween.RotateBy(gameObject, iTween.Hash(axis.ToString(), .25, "Time", 0.5f, "easeType", "easeInOutBack", "oncomplete", "onRotationComplete", "onstart", "playSound"));
-			if(Time.time > 5)iTween.RotateBy(GameObject.Find("Cube_Map"), iTween.Hash(axis.ToString(), -.25, "Time", 0.5f, "easeType", "easeInOutBack"));
+			if(Time.time > 5 && cubeMap != null)iTween.RotateBy(cubeMap, iTween.Hash(axis.ToString(), -.25, "Time", 0.5f, "easeType", "easeInOutBack"));
 		} else {
 			isRotating = false;
 		}
