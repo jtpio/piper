@@ -20,7 +20,8 @@ public class Wandering : MonoBehaviour {
 		if(target != null) {
 			Vector3 truePos = new Vector3(target.position.x, transform.position.y, target.position.z);
 			transform.position = truePos + (transform.position - truePos).normalized * orbitDistance;
-			transform.RotateAround(truePos, Vector3.up, orbitDegreesPerSec * Time.deltaTime);
+			float variation = Mathf.Min(Mathf.Max(Mathf.Abs(Mathf.Cos(Time.time) * Mathf.Sin(Time.time + 0.5f)) - 0.25f, 0.2f), 0.4f) - 0.15f;
+			transform.RotateAround(truePos, Vector3.up, 10f * variation * orbitDegreesPerSec * Time.deltaTime);
 		}
 	}
 
