@@ -10,14 +10,12 @@ public class CheckCorrectSizes : MonoBehaviour {
 	public Transform goodLFinalPos;
 	public Transform goodRFinalPos;
 	
-	private Quaternion initQuaternionPlayer;
 	private bool levelWon = false;
 	Transform goodBig = null;
 	Transform goodL = null;
 	Transform goodR = null;
 	
 	void Start () {
-		initQuaternionPlayer = player.rotation;
 	}
 	
 	void LateUpdate () {
@@ -60,8 +58,7 @@ public class CheckCorrectSizes : MonoBehaviour {
 		goodL.GetComponent<Shrink>().ShrinkToDoor();
 		goodR.GetComponent<Shrink>().ShrinkToDoor();
 
-		player.GetComponent<MouseLook>().enabled = false;
-		player.GetComponent<Cardboard>().enabled = false;
+		player.GetComponent<RepositionPlayer>().Reposition();
 
 		Transform[] toDisable = {goodBig, goodL, goodR};
 		foreach (Transform t in transform) {
@@ -80,7 +77,6 @@ public class CheckCorrectSizes : MonoBehaviour {
 		iTween.MoveTo(goodL.gameObject, iTween.Hash("position", goodLFinalPos, "looktarget", goodLFinalPos.transform.position + goodLFinalPos.forward , "easeType", "easeInOutQuart", "Time", 2));
 		iTween.MoveTo(goodR.gameObject, iTween.Hash("position", goodRFinalPos, "looktarget", goodRFinalPos.transform.position +  goodRFinalPos.forward, "easeType", "easeInOutQuart", "Time", 2));
 
-		iTween.RotateTo(player.gameObject, iTween.Hash("rotation", initQuaternionPlayer.eulerAngles, "easeType", "easeInOutQuart", "Time", playerWinRotationTime));
 		StartCoroutine(PlayerRotationFinished(playerWinRotationTime + 2.0f));
 	}
 
