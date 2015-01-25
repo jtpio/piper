@@ -5,7 +5,7 @@ using System.Collections;
 public class Rotate : MonoBehaviour {
 
 	public float rotationDelay;
-	private AudioSource audio;
+	private AudioSource rotationSound;
 
 	private IsLookedAt detector;
 	private bool isRotating = false;
@@ -13,7 +13,7 @@ public class Rotate : MonoBehaviour {
 	void Start() {
 		iTween.Init (gameObject);
 		detector = GetComponent<IsLookedAt>();
-		audio = GetComponent<AudioSource>();
+		rotationSound = GetComponent<AudioSource>();
 	}
 	void Update() {
 		if (detector.Spotted) {
@@ -38,7 +38,7 @@ public class Rotate : MonoBehaviour {
 		}
 	}
 	void playSound(){
-		if(!audio.isPlaying)audio.Play();
+		if(!rotationSound.isPlaying)rotationSound.Play();
 	}
 	void onRotationComplete() {
 		isRotating = false;
