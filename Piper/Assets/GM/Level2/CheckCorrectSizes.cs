@@ -14,7 +14,12 @@ public class CheckCorrectSizes : MonoBehaviour {
 	Transform goodBig = null;
 	Transform goodL = null;
 	Transform goodR = null;
-	
+
+	void OnLevelWasLoaded(int level) {
+		GameState.won = false;
+		GameState.finalWin = false;
+	}
+
 	void Start () {
 	}
 	
@@ -53,6 +58,7 @@ public class CheckCorrectSizes : MonoBehaviour {
 	}
 
 	IEnumerator WinLevel () {
+		GameState.won = true;
 		GameObject.Find("Point light").light.color = new Color(93.0f / 255.0f, 1.0f, 0.0f);
 		goodBig.GetComponent<Shrink>().ShrinkToDoor();
 		goodL.GetComponent<Shrink>().ShrinkToDoor();

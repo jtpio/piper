@@ -12,6 +12,12 @@ public class CheckTextRemoved : MonoBehaviour {
 	public Transform finalPosPiper;
 	
 	bool won = false;
+
+	void OnLevelWasLoaded(int level) {
+		GameState.won = false;
+		GameState.finalWin = false;
+	}
+
 	void Update () {
 		
 		if (won) return;
@@ -28,12 +34,17 @@ public class CheckTextRemoved : MonoBehaviour {
 		cubeMap.gameObject.SetActive(false);
 		player.GetComponent<RepositionPlayer>().Reposition();
 		Destroy(cursor.gameObject);
-		
+		Destroy(GameObject.Find("LaserBeam"));
+
 		yield return new WaitForSeconds(10);
 		Destroy(piper.GetComponent<Wandering>());
-		piper.audio.pitch = 0.7f;
+		GameState.finalWin = true;
 		iTween.MoveTo(piper.gameObject, iTween.Hash("position", finalPosPiper, "looktarget", player , "easeType", "easeInOutQuart", "Time", 2));
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(10);
+
+		AudioControl piperAudio = piper.GetComponent<AudioControl>();
+		while (piperAudio.isPlaying) yield return null;
+
 		AutoFade.LoadLevel("Level4", 3, 1, Color.black);
 	}
 	
